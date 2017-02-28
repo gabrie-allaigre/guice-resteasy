@@ -25,7 +25,6 @@ public class ApiVersionGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 	private final String version;
 	private final boolean addNotAnnoted;
 
-	@Inject
 	private Injector injector;
 
 	public ApiVersionGuiceRestEasyFilterDispatcher(String version) {
@@ -38,6 +37,11 @@ public class ApiVersionGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 
 		this.version = version;
 		this.addNotAnnoted = addNotAnnoted;
+	}
+
+	@Inject
+	public void setInjector(Injector injector) {
+		this.injector = injector;
 	}
 
 	@Override

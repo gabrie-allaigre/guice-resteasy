@@ -20,10 +20,8 @@ import java.util.List;
 public class ListGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 
 	private final List<Key<?>> providerKeys;
-
 	private final List<Key<?>> ressourceKeys;
 
-	@Inject
 	private Injector injector;
 
 	public ListGuiceRestEasyFilterDispatcher(List<Key<?>> providerKeys,
@@ -31,6 +29,11 @@ public class ListGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 		super();
 		this.providerKeys = providerKeys != null ? new ArrayList<>(providerKeys) : new ArrayList<>();
 		this.ressourceKeys = ressourceKeys != null ? new ArrayList<>(ressourceKeys) : new ArrayList<>();
+	}
+
+	@Inject
+	public void setInjector(Injector injector) {
+		this.injector = injector;
 	}
 
 	@Override

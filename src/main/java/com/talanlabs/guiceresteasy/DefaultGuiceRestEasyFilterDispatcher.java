@@ -20,11 +20,15 @@ import java.lang.reflect.Type;
 @Singleton
 public class DefaultGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 
-	@Inject
 	private Injector injector;
 
 	public DefaultGuiceRestEasyFilterDispatcher() {
 		super();
+	}
+
+	@Inject
+	public void setInjector(Injector injector) {
+		this.injector = injector;
 	}
 
 	@Override

@@ -23,7 +23,6 @@ public class AnnotationGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 	private final Annotation annotation;
 	private final boolean addNotAnnoted;
 
-	@Inject
 	private Injector injector;
 
 	public AnnotationGuiceRestEasyFilterDispatcher(
@@ -51,6 +50,11 @@ public class AnnotationGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 		this.annotationClass = annotationClass;
 		this.annotation = annotation;
 		this.addNotAnnoted = addNotAnnoted;
+	}
+
+	@Inject
+	public void setInjector(Injector injector) {
+		this.injector = injector;
 	}
 
 	@Override
