@@ -14,6 +14,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.ws.rs.ext.Provider;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListGuiceRestEasyFilterDispatcher extends FilterDispatcher {
@@ -28,8 +29,8 @@ public class ListGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 	public ListGuiceRestEasyFilterDispatcher(List<Key<?>> providerKeys,
 			List<Key<?>> ressourceKeys) {
 		super();
-		this.providerKeys = providerKeys;
-		this.ressourceKeys = ressourceKeys;
+		this.providerKeys = providerKeys != null ? new ArrayList<>(providerKeys) : new ArrayList<>();
+		this.ressourceKeys = ressourceKeys != null ? new ArrayList<>(ressourceKeys) : new ArrayList<>();
 	}
 
 	@Override
@@ -62,8 +63,6 @@ public class ListGuiceRestEasyFilterDispatcher extends FilterDispatcher {
 						&& GetRestful.isRootResource((Class<?>) type)) {
 					registry.addResourceFactory(new GuiceResourceFactory(
 							binding.getProvider(), (Class<?>) type));
-					providerFactory.registerProviderInstance(binding
-							.getProvider().get());
 				}
 			}
 		}

@@ -9,6 +9,7 @@ import org.jboss.resteasy.util.GetRestful;
 import javax.ws.rs.ext.Provider;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,10 +144,10 @@ public abstract class AbstractResteasyModule extends AbstractModule {
 
 			this.regex = regx;
 			this.url = url;
-			this.mores = mores;
+			this.mores = mores != null ? Arrays.copyOf(mores, mores.length) : new String[0];
 
-			this.providerKeys = new ArrayList<Key<?>>();
-			this.resourceKeys = new ArrayList<Key<?>>();
+			this.providerKeys = new ArrayList<>();
+			this.resourceKeys = new ArrayList<>();
 		}
 
 		public ListResourceBuilder prefix(String prefix) {
