@@ -1,29 +1,28 @@
 package com.talanlabs.guiceresteasy.test.junit;
 
 import com.google.inject.servlet.ServletModule;
-import com.talanlabs.guiceresteasy.DefaultGuiceRestEasyFilterDispatcher;
+import com.talanlabs.guiceresteasy.AbstractResteasyModule;
+import com.talanlabs.guiceresteasy.test.data.Hello1Resource;
 import com.talanlabs.guiceresteasy.test.data.HelloResource;
 import com.talanlabs.guiceresteasy.test.data.WelcomeResource;
 import com.talanlabs.guiceresteasy.test.utils.AppServletContextListener;
 import com.talanlabs.guiceresteasy.test.utils.ServerBootstrap;
 import io.restassured.RestAssured;
 import org.assertj.core.api.Assertions;
-import org.jboss.resteasy.plugins.server.servlet.ResteasyContextParameters;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class DefaultTest {
+public class ListTest {
 
 	@Test
 	public void testSimple() throws Exception {
 		try (ServerBootstrap serverBootstrap = new ServerBootstrap(new AppServletContextListener(new MyModule()))) {
 			Assertions.assertThat(RestAssured.get(serverBootstrap.buildUrl("/rest/hello")).asString())
 					.isEqualTo("hello");
-			Assertions.assertThat(RestAssured.get(serverBootstrap.buildUrl("/rest/welcome")).asString())
+			Assertions.assertThat(RestAssured.get(serverBootstrap.buildUrl("/api/welcome")).asString())
 					.isEqualTo("welcome");
-			Assertions.assertThat(RestAssured.get(serverBootstrap.buildUrl("/rest/toto")).getStatusCode())
+			Assertions.assertThat(RestAssured.get(serverBootstrap.buildUrl("/api/hello")).asString())
+					.isEqualTo("hello1");
+			Assertions.assertThat(RestAssured.get(serverBootstrap.buildUrl("/rest/welcome")).getStatusCode())
 					.isEqualTo(404);
 		}
 	}
@@ -32,12 +31,17 @@ public class DefaultTest {
 
 		@Override
 		protected void configureServlets() {
-			Map<String, String> params = new HashMap<>();
-			params.put(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX, "/rest");
-			filter("/rest/*").through(DefaultGuiceRestEasyFilterDispatcher.class, params);
+			install(new AbstractResteasyModule() {
+				@Override
+				protected void configureReasteay() {
+					serveResources("/rest/*").prefix("rest")
+							.resource(HelloResource.class);
 
-			bind(HelloResource.class);
-			bind(WelcomeResource.class);
+					serveResources("/api/*").prefix("/api")
+							.resource(WelcomeResource.class)
+							.resource(Hello1Resource.class);
+				}
+			});
 		}
 	}
 }

@@ -82,7 +82,7 @@ param1s.put(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX, "/api/v1"
 filter("/api/v1/*").through(new ApiVersionGuiceRestEasyFilterDispatcher("v1"), param1s);
 
 Map<String, String> param2s = new HashMap<String, String>();
-param1s.put(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX, "/api/v2");
+param2s.put(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX, "/api/v2");
 filter("/api/v2/*").through(new ApiVersionGuiceRestEasyFilterDispatcher("v2"), param2s);
 
 bind(HelloProvider.class);
