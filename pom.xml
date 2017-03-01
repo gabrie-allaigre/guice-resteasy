@@ -38,6 +38,7 @@
 		<resteasy.version>3.1.0.Final</resteasy.version>
 		<servlet-api.version>3.1.0</servlet-api.version>
 		<jetty.version>9.4.0.v20161208</jetty.version>
+		<rest-assured.version>3.0.2</rest-assured.version>
 	</properties>
 	<organization>
 		<name>Talanlabs</name>
@@ -210,7 +211,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>3.0.2</version>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
