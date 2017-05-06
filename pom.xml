@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.talanlabs</groupId>
 	<artifactId>guice-resteasy</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>Guice for Resteay</name>
 	<description>Use Guice with Resteasy</description>
 	<url>https://gitlab.talanlabs.com/gabriel-allaigre/guice-resteasy</url>
